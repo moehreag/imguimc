@@ -1,0 +1,12 @@
+{
+	"required": true,
+	"package": "io.github.moehreag.imguimc.test.mixin",
+	"compatibilityLevel": "JAVA_8",
+	"injectors": {
+		"defaultRequire": 1
+	},
+	"client": [
+		"TitleScreenMixin"
+	],
+	"refmap": "common-refmap.json"
+}

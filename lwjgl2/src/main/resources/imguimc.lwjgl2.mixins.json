@@ -1,0 +1,13 @@
+{
+	"required": true,
+	"package": "io.github.moehreag.imguimc.mixin.lwjgl2",
+	"plugin": "io.github.moehreag.imguimc.mixin.ImGuiMCLWJGL2MixinPlugin",
+	"compatibilityLevel": "JAVA_8",
+	"injectors": {
+		"defaultRequire": 1
+	},
+	"client": [
+		"MinecraftClientMixin"
+	],
+	"refmap": "lwjgl2-refmap.json"
+}

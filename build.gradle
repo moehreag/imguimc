@@ -1,92 +1,87 @@
 plugins {
-	//id 'com.github.johnrengelman.shadow' version '8.1.1'
-	id 'maven-publish'
-	id 'java'
-	id 'fabric-loom' version "1.3-SNAPSHOT"
+    id 'java'
+    id 'maven-publish'
+    id 'fabric-loom' version "1.3-SNAPSHOT"
 }
 
-version = project.mod_version
-group = project.maven_group
+allprojects {
+    version = project.mod_version
+    group = project.maven_group
 
-base {
-	archivesName = project.archives_base_name
-}
+    base {
+        archivesName = project.archives_base_name
+    }
 
-repositories {
-	maven {
-		name = 'Fabric'
-		url = 'https://maven.fabricmc.net/'
-	}
-	mavenCentral()
+    apply {
+        plugin 'java'
+        plugin 'maven-publish'
+    }
+
+    repositories {
+        mavenCentral()
+    }
+
+    tasks.withType(JavaCompile).configureEach {
+        it.options.release.set(8)
+    }
+
+    java {
+        // Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
+        // if it is present.
+        // If you remove this line, sources will not be generated.
+        withSourcesJar()
+
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+
+    // configure the maven publication
+    publishing {
+        publications {
+            mavenJava(MavenPublication) {
+                from components.java
+            }
+        }
+
+        // See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
+        repositories {
+            // Add repositories to publish to here.
+            // Notice: This block does NOT have the same function as the block in the top level.
+            // The repositories here will be used for publishing your artifact, not for
+            // retrieving dependencies.
+        }
+    }
 }
 
 dependencies {
-	// To change the versions see the gradle.properties file
-	minecraft "com.mojang:minecraft:${project.minecraft_version}"
-	mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
-	modImplementation ("net.fabricmc:fabric-loader:${project.loader_version}")
+    minecraft "com.mojang:minecraft:${project.minecraft_version}"
+    mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
 
-	include implementation("io.github.spair:imgui-java-lwjgl3:${project.imgui_version}")
-	include implementation("io.github.spair:imgui-java-natives-linux-ft:${project.imgui_version}")
-	include implementation("io.github.spair:imgui-java-natives-windows-ft:${project.imgui_version}")
-	include implementation("io.github.spair:imgui-java-natives-macos-ft:${project.imgui_version}")
-	include implementation("io.github.spair:imgui-java-binding:${project.imgui_version}")
-
-	//include implementation(project(":imgui_lwjgl2"))
-}
-
-tasks.withType(AbstractArchiveTask).configureEach {
-	preserveFileTimestamps = false
-	reproducibleFileOrder = true
-}
-
-processResources {
-	inputs.property "version", project.version
-
-	filesMatching("fabric.mod.json") {
-		expand "version": project.version
-	}
-}
-
-tasks.withType(JavaCompile).configureEach {
-	it.options.release = 8
-}
-
-java {
-	// Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
-	// if it is present.
-	// If you remove this line, sources will not be generated.
-	withSourcesJar()
-
-	sourceCompatibility = JavaVersion.VERSION_1_8
-	targetCompatibility = JavaVersion.VERSION_1_8
+    include implementation("io.github.spair:imgui-java-natives-linux-ft:${project.imgui_version}")
+    include implementation("io.github.spair:imgui-java-natives-windows-ft:${project.imgui_version}")
+    include implementation("io.github.spair:imgui-java-natives-macos-ft:${project.imgui_version}")
+    include implementation("io.github.spair:imgui-java-binding:${project.imgui_version}")
+    include implementation("io.github.spair:imgui-java-lwjgl3:${project.imgui_version}")
 }
 
 jar {
-	from("LICENSE") {
-		rename { "${it}_${project.base.archivesName.get()}"}
-	}
+    from("LICENSE") {
+        rename { "${it}_${project.base.archivesName.get()}" }
+    }
 
-	//from(project(":imguimc_main").sourceSets.main.output)
-	//from(project(":imguimc_lwjgl2").sourceSets.main.output)
-	//from(project(":imguimc_lwjgl3").sourceSets.main.output)
+    from(project(":imgui").sourceSets.main.output)
+    from(project(":common").sourceSets.main.output)
+    from(project(":lwjgl2").sourceSets.main.output)
+    from(project(":lwjgl3").sourceSets.main.output)
 }
 
+sourcesJar {
+    from("LICENSE") {
+        rename { "${it}_${project.base.archivesName.get()}" }
+    }
 
-
-// configure the maven publication
-publishing {
-	publications {
-		mavenJava(MavenPublication) {
-			from components.java
-		}
-	}
-
-	// See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
-	repositories {
-		// Add repositories to publish to here.
-		// Notice: This block does NOT have the same function as the block in the top level.
-		// The repositories here will be used for publishing your artifact, not for
-		// retrieving dependencies.
-	}
+    from(project(":imgui").sourceSets.main.output)
+    from(project(":common").sourceSets.main.output)
+    from(project(":lwjgl2").sourceSets.main.output)
+    from(project(":lwjgl3").sourceSets.main.output)
 }

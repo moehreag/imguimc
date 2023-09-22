@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "id": "imguimc",
+  "version": "${version}",
+  "name": "Dear ImGui MC",
+  "description": "Integrates the Dear ImGui GUI library into minecraft, now easy to use and to package!",
+  "authors": [
+    "moehreag"
+  ],
+  "contact": {
+    "sources": "https://github.com/moehreag/imguimc"
+  },
+  "license": "LGPL-3.0",
+  "icon": "assets/modid/icon.png",
+  "environment": "*",
+  "mixins": [
+    "imguimc.common.mixins.json",
+    "imguimc.lwjgl2.mixins.json",
+    "imguimc.lwjgl3.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": "*",
+    "java": ">=8",
+    "minecraft": "*"
+  }
+}

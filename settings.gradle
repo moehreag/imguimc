@@ -8,8 +8,6 @@ pluginManagement {
 		gradlePluginPortal()
 	}
 }
-include 'imgui_lwjgl2'
-include 'imguimc_lwjgl2'
-include 'imguimc_main'
-include 'imguimc_lwjgl3'
+
+include 'imgui', 'common', 'lwjgl2', 'lwjgl3'
 
