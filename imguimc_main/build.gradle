@@ -1,0 +1,34 @@
+plugins {
+    id 'java'
+    id 'maven-publish'
+}
+
+group = 'io.github.moehreag'
+version = parent.version
+
+repositories {
+    maven {
+        name = 'Fabric'
+        url = 'https://maven.fabricmc.net/'
+    }
+    mavenCentral()
+}
+
+dependencies {
+
+    compileOnly ("net.fabricmc:fabric-loader:${project.loader_version}") {
+        transitive = false
+    }
+
+    implementation("io.github.spair:imgui-java-lwjgl3:${project.imgui_version}")
+    implementation("io.github.spair:imgui-java-natives-linux-ft:${project.imgui_version}")
+    implementation("io.github.spair:imgui-java-natives-windows-ft:${project.imgui_version}")
+    implementation("io.github.spair:imgui-java-natives-macos-ft:${project.imgui_version}")
+    implementation("io.github.spair:imgui-java-binding:${project.imgui_version}")
+
+    implementation(project(":imgui_lwjgl2"))
+}
+
+/*runClient {
+    classpath(sourceSets.test.runtimeClasspath)
+}*/

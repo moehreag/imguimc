@@ -1,0 +1,15 @@
+pluginManagement {
+	repositories {
+		maven {
+			name = 'Fabric'
+			url = 'https://maven.fabricmc.net/'
+		}
+		mavenCentral()
+		gradlePluginPortal()
+	}
+}
+include 'imgui_lwjgl2'
+include 'imguimc_lwjgl2'
+include 'imguimc_main'
+include 'imguimc_lwjgl3'
+

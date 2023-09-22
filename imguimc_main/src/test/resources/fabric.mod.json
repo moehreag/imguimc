@@ -1,0 +1,27 @@
+{
+	"schemaVersion": 1,
+	"id": "imguimc-test",
+	"version": "0.0.0",
+	"name": "Dear ImGui MC",
+	"description": "Integrates the Dear ImGui GUI library into minecraft, now easy to use and to package! (Test Mod)",
+	"authors": [
+		"moehreag"
+	],
+	"contact": {
+		"sources": "https://github.com/moehreag/imguimc"
+	},
+	"license": "LGPL-3.0",
+	"icon": "assets/modid/icon.png",
+	"environment": "*",
+	"entrypoints": {
+
+	},
+	"mixins": [
+		"imguimc.test.mixins.json"
+	],
+	"depends": {
+		"fabricloader": "*",
+		"java": ">=8",
+		"minecraft": "*"
+	}
+}
