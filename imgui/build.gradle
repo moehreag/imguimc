@@ -1,0 +1,13 @@
+plugins {
+    id('java-library')
+}
+
+version '1.0.0'
+
+dependencies {
+    compileOnly("org.lwjgl.lwjgl:lwjgl:2.9.3")
+    implementation("io.github.spair:imgui-java-natives-linux-ft:${project.imgui_version}")
+    implementation("io.github.spair:imgui-java-natives-windows-ft:${project.imgui_version}")
+    implementation("io.github.spair:imgui-java-natives-macos-ft:${project.imgui_version}")
+    api("io.github.spair:imgui-java-binding:${project.imgui_version}")
+}
