@@ -11,27 +11,27 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class MinecraftClientMixin {
 
 	@Inject(method = "initializeGame", at = @At("TAIL"))
-	private void imgui$init(CallbackInfo ci){
+	private void imgui$init(CallbackInfo ci) {
 		ImGuiMC.initWindow();
 	}
 
 	@Inject(method = "runGameLoop", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/AchievementNotification;tick()V"))
-	private void imgui$endFrame(CallbackInfo ci){
+	private void imgui$endFrame(CallbackInfo ci) {
 		ImGuiMC.imGuiRender();
 	}
 
 	@Inject(method = "runGameLoop", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/ClientPlayerEntity;isInsideWall()Z"))
-	private void imgui$startFrame(CallbackInfo ci){
+	private void imgui$startFrame(CallbackInfo ci) {
 		ImGuiMC.imGuiStartFrame();
 	}
 
 	@Inject(method = "stop", at = @At("HEAD"))
-	private void imgui$stop(CallbackInfo ci){
+	private void imgui$stop(CallbackInfo ci) {
 		ImGuiMC.imGuiShutdown();
 	}
 
 	@Inject(method = "tick", at = @At("TAIL"))
-	private void imgui$tick(CallbackInfo ci){
+	private void imgui$tick(CallbackInfo ci) {
 		ImGuiMC.tick();
 	}
 }

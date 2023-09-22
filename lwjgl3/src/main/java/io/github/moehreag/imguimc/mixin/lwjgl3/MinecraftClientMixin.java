@@ -11,22 +11,22 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class MinecraftClientMixin {
 
 	@Inject(method = "onInitFinished", at = @At("HEAD"))
-	private void imgui$init(CallbackInfo ci){
+	private void imgui$init(CallbackInfo ci) {
 		ImGuiMC.initWindow();
 	}
 
 	@Inject(method = "render", at = @At(value = "FIELD", target = "Lnet/minecraft/client/MinecraftClient;renderTime:J"))
-	private void imgui$endFrame(boolean tick, CallbackInfo ci){
+	private void imgui$endFrame(boolean tick, CallbackInfo ci) {
 		ImGuiMC.imGuiRender();
 	}
 
 	@Inject(method = "render", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/systems/RenderSystem;enableCull()V", remap = false))
-	private void imgui$startFrame(boolean tick, CallbackInfo ci){
+	private void imgui$startFrame(boolean tick, CallbackInfo ci) {
 		ImGuiMC.imGuiStartFrame();
 	}
 
 	@Inject(method = "stop", at = @At("HEAD"))
-	private void imgui$stop(CallbackInfo ci){
+	private void imgui$stop(CallbackInfo ci) {
 		ImGuiMC.imGuiShutdown();
 	}
 }

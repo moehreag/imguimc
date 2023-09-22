@@ -12,7 +12,7 @@ repositories {
 dependencies {
     minecraft "com.mojang:minecraft:1.8.9"
     mappings "net.legacyfabric:yarn:1.8.9+build.458"
-    modImplementation ("net.fabricmc:fabric-loader:${project.loader_version}")
+    modImplementation("net.fabricmc:fabric-loader:${project.loader_version}")
 
     implementation(project(":common"))
 }
